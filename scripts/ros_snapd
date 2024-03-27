@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+
+import rospy
+
+from ros_snapd.snapd_interface import RosSnapdNode
+
+
+def main() -> None:
+    rospy.init_node('ros_snapd', log_level=rospy.DEBUG)
+
+    node = RosSnapdNode()
+
+    rospy.spin()
+
+if __name__ == '__main__':
+    main()

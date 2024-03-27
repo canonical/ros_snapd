@@ -1,0 +1,40 @@
+name: ros-snapd
+base: core20
+version: '0.0.1'
+summary: A ROS Node to start and stop snap services.
+description: |
+  This snap contains a ROS Noetic node that exposes ROS services
+  which allow to interact with snap services.
+
+  To list available snap service:
+  rosservice call /ros_snapd/list
+
+  To start, stop and restart snap service:
+  rosservice call /ros_snapd/start "{service: 'service.name'}"
+  rosservice call /ros_snapd/stop "{service: 'service.name'}"
+  rosservice call /ros_snapd/restart "{service: 'service.name'}"
+
+license: GPL-3.0
+grade: stable
+confinement: strict
+architectures:
+  - build-on: amd64
+  - build-on: arm64
+
+apps:
+  ros-snapd:
+    command: rosrun ros_snapd ros_snapd
+    daemon: simple
+    environment:
+      ROS_HOME: $SNAP_DATA/ros
+    plugs: [network, network-bind, snapd-control]
+    extensions: [ros1-noetic-ros-base]
+
+parts:
+  snapd-http:
+    plugin: python
+    python-packages: [snap-http]
+
+  ros-snapd:
+    plugin: catkin
+    source: .
