@@ -23,13 +23,13 @@ And create the project,
 ```bash
 mkdir -p workspace/src
 cd workspace/src
-git clone
+git clone https://github.com/ubuntu-robotics/ros_snapd.git -b humble
 ```
 
 Make sure that all dependencies are available,
 
 ```bash
-rosdep install --
+rosdep install --default-yes --ignore-packages-from-source --rosdistro=humble --from-paths .
 ```
 
 Install also the `snap-http` Python3 module,

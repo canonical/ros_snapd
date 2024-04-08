@@ -9,7 +9,7 @@ A ROS 2 node to start and stop snap services.
 This package is distributed as a snap and as such is meant to be built using snapcraft:
 
 ```bash
-snapcraft build
+snapcraft --verbose
 ```
 
 ## Use
