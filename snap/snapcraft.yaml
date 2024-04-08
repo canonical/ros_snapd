@@ -18,7 +18,8 @@ license: GPL-3.0
 grade: stable
 confinement: strict
 architectures:
-  - build-on: [amd64, arm64]
+  - build-on: [amd64]
+  - build-on: [arm64]
 
 apps:
   ros2-snapd:
@@ -26,6 +27,7 @@ apps:
     daemon: simple
     environment:
       ROS_HOME: $SNAP_DATA/ros
+      FASTRTPS_DEFAULT_PROFILES_FILE: ${SNAP}/usr/share/fastdds_no_shared_memory.xml
     plugs: [network, network-bind, snapd-control]
     extensions: [ros2-humble-ros-base]
 
@@ -39,3 +41,9 @@ parts:
     plugin: colcon
     source: .
     build-packages: [python3-lark]
+
+  config:
+    plugin: dump
+    source: snap/local/
+    organize:
+      'fastdds_no_shared_memory.xml': usr/share/
