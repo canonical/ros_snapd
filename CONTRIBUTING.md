@@ -36,7 +36,7 @@ Install also the `snap-http` Python3 module,
 
 ```bash
 apt install python3-pip
-python3 -m pip install snap-http
+python3 -m pip install -r requirements.txt
 ```
 
 At this point you can build the project,
