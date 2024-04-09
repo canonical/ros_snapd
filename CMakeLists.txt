@@ -12,7 +12,6 @@ catkin_python_setup()
 add_service_files(
   FILES
   SnapdList.srv
-  SnapdStatus.srv
   SnapdStart.srv
   SnapdRestart.srv
   SnapdStop.srv
