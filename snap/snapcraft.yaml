@@ -7,7 +7,7 @@ description: |
   which allow to interact with snap services.
 
   To list available snap service:
-  ros2 service call /ros_snapd/list ros2_snapd/srv/SnapdList
+  ros2 service call /ros2_snapd/list ros2_snapd/srv/SnapdList
 
   To start, stop and restart snap service:
   ros2 service call /ros2_snapd/start ros2_snapd/srv/SnapdStart "service: 'service.name'"
