@@ -1,4 +1,5 @@
 """Module providing the ros_snapd ROS node."""
+
 import rospy
 import snap_http
 
@@ -17,9 +18,18 @@ from ros_snapd.srv import (
     SnapdStopResponse,
 )
 
+_EXCLUSION_LIST = [
+    "lxd.activate",
+    "lxd.daemon",
+    "lxd.user-daemon",
+    "ros-snapd.ros-snapd",
+    "ros2-snapd.ros2-snapd",
+]
+
 
 class RosSnapdNode:
     """The ros_snapd Node."""
+
     def __init__(self) -> None:
         self.list_service = rospy.Service("~list", SnapdList, self._handle_list)
         self.start_service = rospy.Service("~start", SnapdStart, self._handle_start)
@@ -44,7 +54,8 @@ class RosSnapdNode:
         services = []
         for it in list_response.result:
             service_name = f"{it['snap']}.{it['name']}"
-            services.append(service_name)
+            if service_name not in _EXCLUSION_LIST:
+                services.append(service_name)
 
         rospy.logdebug(services)
 
@@ -52,6 +63,9 @@ class RosSnapdNode:
 
     def _handle_start(self, req: SnapdStartRequest) -> SnapdStartResponse:
         rospy.logdebug("Starting: %s", req.service)
+
+        if req.service in _EXCLUSION_LIST:
+            return SnapdStartResponse(False, f"Cannot start '{req.service}'")
 
         start_response = None
         try:
@@ -78,6 +92,9 @@ class RosSnapdNode:
     def _handle_restart(self, req: SnapdRestartRequest) -> SnapdRestartResponse:
         rospy.logdebug("Restarting: %s", req.service)
 
+        if req.service in _EXCLUSION_LIST:
+            return SnapdRestartResponse(False, f"Cannot restart '{req.service}'")
+
         restart_response = None
         try:
             restart_response = snap_http.restart(name=req.service)
@@ -102,6 +119,9 @@ class RosSnapdNode:
 
     def _handle_stop(self, req: SnapdStopRequest) -> SnapdStopResponse:
         rospy.logdebug("Stopping: %s", req.service)
+
+        if req.service in _EXCLUSION_LIST:
+            return SnapdStopResponse(False, f"Cannot stop '{req.service}'")
 
         stop_response = None
         try:

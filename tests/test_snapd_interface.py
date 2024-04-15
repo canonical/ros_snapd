@@ -49,6 +49,20 @@ class TestSnapdInterface(TestCase):
             success=True, message="", services=["foo.srv", "bar.srv"]
         )
 
+    @mock.patch("ros_snapd.snapd_interface._EXCLUSION_LIST", ["bar.srv"])
+    @mock.patch("snap_http.get_apps")
+    def test_list_exclusion_list(self, mocked_get_apps):
+        mocked_get_apps.return_value = SnapdResponse(
+            type="", status_code="", status="", result=[
+                {"snap": "foo", "name": "srv"},
+                {"snap": "bar", "name": "srv"},
+            ]
+        )
+
+        results = self.node._handle_list(SnapdList())
+
+        assert "bar.srv" not in results.services
+
     @mock.patch("snap_http.get_apps")
     def test_handle_list_raise(self, mocked_get_apps):
         mocked_get_apps.side_effect = SnapdHttpException()
@@ -98,6 +112,16 @@ class TestSnapdInterface(TestCase):
             success=True, message="Service 'foo' started"
         )
 
+    @mock.patch("ros_snapd.snapd_interface._EXCLUSION_LIST", ["foo.srv"])
+    @mock.patch("snap_http.start")
+    def test_start_callback_exclusion(self, mocked_start):
+        service_name = "foo.srv"
+        results = self.node._handle_start(SnapdStartRequest(service="foo.srv"))
+
+        assert results == SnapdStartResponse(
+            success=False, message=f"Cannot start '{service_name}'"
+        )
+
     @mock.patch("snap_http.stop")
     def test_handle_stop_raise(self, mocked_stop):
         error_message = "nop"
@@ -131,12 +155,21 @@ class TestSnapdInterface(TestCase):
 
         results = self.node._handle_stop(SnapdStopRequest(service="foo"))
 
-        assert type(results) == SnapdStopResponse
+        assert isinstance(results, SnapdStopResponse)
 
         assert results == SnapdStopResponse(
             success=True, message="Service 'foo' stopped"
         )
 
+    @mock.patch("ros_snapd.snapd_interface._EXCLUSION_LIST", ["foo.srv"])
+    @mock.patch("snap_http.stop")
+    def test_stop_callback_exclusion(self, mocked_stop):
+        service_name = "foo.srv"
+        results = self.node._handle_stop(SnapdStopRequest(service="foo.srv"))
+
+        assert results == SnapdStopResponse(
+            success=False, message=f"Cannot stop '{service_name}'"
+        )
 
     @mock.patch("snap_http.restart")
     def test_handle_restart_raise(self, mocked_restart):
@@ -171,8 +204,18 @@ class TestSnapdInterface(TestCase):
 
         results = self.node._handle_restart(SnapdRestartRequest(service="foo"))
 
-        assert type(results) == SnapdRestartResponse
+        assert isinstance(results, SnapdRestartResponse)
 
         assert results == SnapdRestartResponse(
             success=True, message="Service 'foo' restarted"
+        )
+
+    @mock.patch("ros_snapd.snapd_interface._EXCLUSION_LIST", ["foo.srv"])
+    @mock.patch("snap_http.restart")
+    def test_restart_callback_exclusion(self, mocked_restart):
+        service_name = "foo.srv"
+        results = self.node._handle_restart(SnapdRestartRequest(service="foo.srv"))
+
+        assert results == SnapdRestartResponse(
+            success=False, message=f"Cannot restart '{service_name}'"
         )
