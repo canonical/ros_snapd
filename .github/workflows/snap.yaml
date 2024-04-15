@@ -27,15 +27,15 @@ jobs:
         #!/bin/bash
 
         check_existence() {
-          local topic_or_node=$1
-          local name=$2
-          local timeout=$3
+          local topic_or_node="${1}"
+          local name="${2}"
+          local timeout="${3}"
           local start_time=$(date +%s)
 
           while true; do
-            ros2 $topic_or_node list | grep -q "/$name"
+            ros2 "${topic_or_node}" list | grep -q "${name}"
             if [ $? -eq 0 ]; then
-              echo "$name is running."
+              echo "${name} is running."
               return 0
             fi
 
@@ -60,6 +60,8 @@ jobs:
 
         ## Install ROS 2 cli
         sudo snap install ros2-cli --channel=humble/beta
+
+        ros2 service list
 
         ## check that services are available
         check_existence service /ros2_snapd/list 30
