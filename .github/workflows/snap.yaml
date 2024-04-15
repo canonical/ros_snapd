@@ -54,14 +54,8 @@ jobs:
         sudo snap connect ros2-snapd:snapd-control
         sudo snap restart ros2-snapd
 
-        snap services
-        snap connections ros2-snapd
-        sudo snap logs ros2-snapd -n 50
-
         ## Install ROS 2 cli
         sudo snap install ros2-cli --channel=humble/beta
-
-        ros2 service list
 
         ## check that services are available
         check_existence service /ros2_snapd/list 30
@@ -73,6 +67,6 @@ jobs:
         source /snap/ros2-snapd/current/opt/ros/snap/local_setup.bash
 
         ## @todo test all services
-        ros2 service call /ros2_snapd/list ros2_snapd/srv/SnapdList | grep 'success=True\|ros2-snapd.ros2-snapd' >/dev/null
+        ros2 service call /ros2_snapd/list ros2_snapd/srv/SnapdList | grep 'success=True' >/dev/null
 
         sudo snap stop ros2-snapd
