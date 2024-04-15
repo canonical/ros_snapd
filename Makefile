@@ -1,5 +1,5 @@
 .ONESHELL:
-ENV_PREFIX=$(shell python -c "if __import__('pathlib').Path('.venv/bin/pip').exists(): print('.venv/bin/')")
+ENV_PREFIX=$(shell python3 -c "if __import__('pathlib').Path('.venv/bin/pip').exists(): print('.venv/bin/')")
 
 .PHONY: help
 help:             ## Show the help.
@@ -37,7 +37,7 @@ test-isort:
 
 .PHONY: test-units
 test-units: ## Run unit tests.
-	$(ENV_PREFIX)pytest tests/unit
+	$(ENV_PREFIX)pytest tests/
 
 .PHONY: lint
 lint: test-black test-codespell test-flake8 test-isort ## Run all linting tests.

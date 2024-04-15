@@ -132,14 +132,14 @@ class TestSnapdInterface(TestCase):
 
         assert results == SnapdStopResponse(
             success=False,
-            message=f"Something went wrong while stoping '{service_name}': {error_message}",
+            message=f"Something went wrong while stopping '{service_name}': {error_message}",
         )
 
         results = self.node._handle_stop(SnapdStopRequest())
 
         assert results == SnapdStopResponse(
             success=False,
-            message=f"Something went wrong while stoping '': {error_message}",
+            message=f"Something went wrong while stopping '': {error_message}",
         )
 
     @mock.patch("snap_http.check_change")

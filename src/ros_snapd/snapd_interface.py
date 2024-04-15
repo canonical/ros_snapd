@@ -129,7 +129,7 @@ class RosSnapdNode:
         except snap_http.http.SnapdHttpException as e:
             rospy.logerr(e)
             return SnapdStopResponse(
-                False, f"Something went wrong while stoping '{req.service}': {e}"
+                False, f"Something went wrong while stopping '{req.service}': {e}"
             )
 
         rospy.logdebug(stop_response)
