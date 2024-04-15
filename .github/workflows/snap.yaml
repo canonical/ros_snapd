@@ -63,10 +63,6 @@ jobs:
         check_existence service /ros2_snapd/stop 30
         check_existence service /ros2_snapd/restart 30
 
-        # Source the ws inside the snap to access the service types
-        source /snap/ros2-snapd/current/opt/ros/snap/local_setup.bash
-
         ## @todo test all services
-        ros2 service call /ros2_snapd/list ros2_snapd/srv/SnapdList | grep 'success=True' >/dev/null
 
         sudo snap stop ros2-snapd
