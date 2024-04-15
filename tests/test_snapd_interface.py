@@ -78,6 +78,21 @@ class TestSnapdInterface(TestCase):
             services=[]
         )
 
+    @mock.patch("scripts.ros2_snapd._EXCLUSION_LIST", ["bar.srv"])
+    @mock.patch("snap_http.get_apps")
+    def test_list_exclusion_list(self, mocked_get_apps):
+        mocked_get_apps.return_value = SnapdResponse(
+            type="", status_code="", status="", result=[
+                {"snap": "foo", "name": "srv"},
+                {"snap": "bar", "name": "srv"},
+            ]
+        )
+
+        response = SnapdList.Response()
+        response = self.node._list_callback(SnapdList.Request(), response)
+
+        assert "bar.srv" not in response.services
+
     @mock.patch("snap_http.start")
     def test_start_callback_raise(self, mocked_start):
         error_message = "nop"
@@ -100,6 +115,20 @@ class TestSnapdInterface(TestCase):
         assert response == SnapdStart.Response(
             success=False,
             message=f"Something went wrong while starting '': {error_message}",
+        )
+
+    @mock.patch("scripts.ros2_snapd._EXCLUSION_LIST", ["foo.srv"])
+    @mock.patch("snap_http.start")
+    def test_start_callback_exclusion(self, mocked_start):
+        service_name = "foo.srv"
+        response = SnapdStart.Response()
+        response = self.node._start_callback(
+            SnapdStart.Request(service=service_name), response
+        )
+
+        assert response == SnapdStart.Response(
+            success=False,
+            message=f"Cannot start '{service_name}'",
         )
 
     @mock.patch("snap_http.check_change")
@@ -143,6 +172,20 @@ class TestSnapdInterface(TestCase):
             message=f"Something went wrong while stopping '': {error_message}",
         )
 
+    @mock.patch("scripts.ros2_snapd._EXCLUSION_LIST", ["foo.srv"])
+    @mock.patch("snap_http.stop")
+    def test_stop_callback_exclusion(self, mocked_stop):
+        service_name = "foo.srv"
+        response = SnapdStop.Response()
+        response = self.node._stop_callback(
+            SnapdStop.Request(service=service_name), response
+        )
+
+        assert response == SnapdStop.Response(
+            success=False,
+            message=f"Cannot stop '{service_name}'",
+        )
+
     @mock.patch("snap_http.check_change")
     @mock.patch("snap_http.stop")
     def test_stop_callback(self, mocked_stop, mocked_check_change):
@@ -184,6 +227,20 @@ class TestSnapdInterface(TestCase):
         assert response == SnapdRestart.Response(
             success=False,
             message=f"Something went wrong while restarting '': {error_message}",
+        )
+
+    @mock.patch("scripts.ros2_snapd._EXCLUSION_LIST", ["foo.srv"])
+    @mock.patch("snap_http.restart")
+    def test_restart_callback_exclusion(self, mocked_restart):
+        service_name = "foo.srv"
+        response = SnapdRestart.Response()
+        response = self.node._restart_callback(
+            SnapdRestart.Request(service=service_name), response
+        )
+
+        assert response == SnapdRestart.Response(
+            success=False,
+            message=f"Cannot restart '{service_name}'",
         )
 
     @mock.patch("snap_http.check_change")

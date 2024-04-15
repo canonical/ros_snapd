@@ -23,6 +23,15 @@ import rclpy
 from rclpy.node import Node
 
 
+_EXCLUSION_LIST = [
+    "lxd.activate",
+    "lxd.daemon",
+    "lxd.user-daemon",
+    "ros-snapd.ros-snapd",
+    "ros2-snapd.ros2-snapd",
+]
+
+
 class Ros2SnapdNode(Node):
 
     def __init__(self):
@@ -50,9 +59,10 @@ class Ros2SnapdNode(Node):
 
         for it in list_response.result:
             service_name = f"{it['snap']}.{it['name']}"
-            response.services.append(service_name)
+            if service_name not in _EXCLUSION_LIST:
+                response.services.append(service_name)
 
-        self.get_logger().debug("Services: {response.services}")
+        self.get_logger().debug(f"Services: {response.services}")
 
         response.success = True
 
@@ -63,6 +73,11 @@ class Ros2SnapdNode(Node):
         self.get_logger().debug(
             f"Incoming request to restart service '{request.service}'"
         )
+
+        if request.service in _EXCLUSION_LIST:
+            response.success = False
+            response.message = f"Cannot restart '{request.service}'"
+            return response
 
         restart_response = None
         try:
@@ -95,6 +110,11 @@ class Ros2SnapdNode(Node):
             f"Incoming request to start service {request.service}"
         )
 
+        if request.service in _EXCLUSION_LIST:
+            response.success = False
+            response.message = f"Cannot start '{request.service}'"
+            return response
+
         start_response = None
         try:
             start_response = snap_http.start(name=request.service)
@@ -125,6 +145,11 @@ class Ros2SnapdNode(Node):
         self.get_logger().debug(
             f"Incoming request to stop service '{request.service}'"
         )
+
+        if request.service in _EXCLUSION_LIST:
+            response.success = False
+            response.message = f"Cannot stop '{request.service}'"
+            return response
 
         stop_response = None
         try:
