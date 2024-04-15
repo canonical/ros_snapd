@@ -51,8 +51,8 @@ jobs:
         }
 
         ## Connect interface
-        sudo snap connect ros2_snapd:snapd-control
-        sudo snap restart ros2_snapd
+        sudo snap connect ros2-snapd:snapd-control
+        sudo snap restart ros2-snapd
 
         ## Install ROS 2 cli
         sudo snap install ros2-cli --channel=humble/beta
