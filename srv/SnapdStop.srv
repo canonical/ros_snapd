@@ -1,0 +1,4 @@
+string service # name of the service to stop
+---
+bool success # indicate successful stop of the service
+string message # informational, e.g. error messages
