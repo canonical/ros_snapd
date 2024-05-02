@@ -22,6 +22,8 @@ from ros2_snapd.srv import SnapdList, SnapdRestart, SnapdStart, SnapdStop
 import rclpy
 from rclpy.node import Node
 
+import time
+
 
 _EXCLUSION_LIST = [
     "lxd.activate",
@@ -41,7 +43,6 @@ class Ros2SnapdNode(Node):
         self.srv = self.create_service(SnapdStart, "~/start", self._start_callback)
         self.srv = self.create_service(SnapdStop, "~/stop", self._stop_callback)
 
-        self._rate = self.create_rate(10)
 
     def _list_callback(self, request, response):
         """Service 'list' callback."""
@@ -95,7 +96,7 @@ class Ros2SnapdNode(Node):
         self.get_logger().debug(str(check_change_response))
 
         while check_change_response.result["status"] == "Doing":
-            self._rate.sleep()
+            time.sleep(0.1)
             check_change_response = snap_http.check_change(restart_response.change)
             self.get_logger().debug(str(check_change_response))
 
@@ -131,7 +132,7 @@ class Ros2SnapdNode(Node):
         self.get_logger().debug(str(check_change_response))
 
         while check_change_response.result["status"] == "Doing":
-            self._rate.sleep()
+            time.sleep(0.1)
             check_change_response = snap_http.check_change(start_response.change)
             self.get_logger().debug(str(check_change_response))
 
@@ -167,7 +168,7 @@ class Ros2SnapdNode(Node):
         self.get_logger().debug(str(check_change_response))
 
         while check_change_response.result["status"] == "Doing":
-            self._rate.sleep()
+            time.sleep(0.1)
             check_change_response = snap_http.check_change(stop_response.change)
             self.get_logger().debug(str(check_change_response))
 
