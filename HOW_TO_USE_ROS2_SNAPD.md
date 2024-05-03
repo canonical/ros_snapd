@@ -1,9 +1,9 @@
 # How to use ros2-snapd
 
-For this how to guide we will use the `ros2-snapd` to run 
+For this 'how to' guide we will use the `ros2-snapd` to run 
 nav2 SLAM on the Husarion ROSbot XL.
 
-We use Ubuntu 22.04 and the corresponding ROS 2 Humble.
+We use Ubuntu 22.04 and the corresponding ROS 2 Humble distribution.
 
 Before starting this how to guide, make sure to follow the 
 official [instructions to build and run ROSbot XL simulation](https://github.com/husarion/rosbot_xl_ros?tab=readme-ov-file#build-and-run-gazebo-simulation).
@@ -54,12 +54,12 @@ snap services that we can interract with.
 ros2 service call /ros2_snapd/list ros2_snapd/srv/SnapdList
 ```
 
-This returns a list containing `ros2-nav2.slam`.
+This returns a list containing `ros2-nav2.slam` among other services.
 
 ### Start the `ros2-nav2.slam` service from ROS 2
 
 Now, we use the `ros2-snapd` to start our SLAM.
-In pure snap CLI we would do: `sudo snap start ros2-nav2.slam`.
+Using the snap CLI we would issue: `sudo snap start ros2-nav2.slam`.
 With `ros2-snapd`, we can start the service from a ROS service:
 
 ```
@@ -75,7 +75,7 @@ snap info ros2-nav2
 ### Stop the `ros2-nav2.slam` service from ROS 2 
 
 Finally, we use the `ros2-snapd` to stop our SLAM.
-In pure snap CLI we would do: `sudo snap stop ros2-nav2.slam`.
+Using the snap CLI we would issue: `sudo snap stop ros2-nav2.slam`.
 With `ros2-snapd`, we can stop the service from a ROS service:
 
 ```
