@@ -1,7 +1,7 @@
 # How to use ros2-snapd
 
 For this 'how to' guide we will use the `ros2-snapd` to run 
-nav2 SLAM on the Husarion ROSbot XL.
+[nav2](https://navigation.ros.org/) SLAM on the [Husarion ROSbot XL](https://husarion.com/manuals/rosbot-xl/).
 
 We use Ubuntu 22.04 and the corresponding ROS 2 Humble distribution.
 
