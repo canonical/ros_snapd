@@ -1,9 +1,9 @@
 name: ros2-snapd
-base: core22
+base: core24
 version: '0.0.1'
 summary: A ROS 2 node to start and stop snap services.
 description: |
-  This snap contains a ROS 2 Humble node that exposes ROS 2 services
+  This snap contains a ROS 2 Jazzy node that exposes ROS 2 services
   which allow to interact with snap services.
 
   To list available snap service:
@@ -29,7 +29,7 @@ apps:
       ROS_HOME: $SNAP_DATA/ros
       FASTRTPS_DEFAULT_PROFILES_FILE: ${SNAP}/usr/share/fastdds_no_shared_memory.xml
     plugs: [network, network-bind, snapd-control]
-    extensions: [ros2-humble-ros-base]
+    extensions: [ros2-jazzy-ros-base]
 
 parts:
   snapd-http:
