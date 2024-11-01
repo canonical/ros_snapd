@@ -1,6 +1,6 @@
 name: ros-snapd
 base: core20
-version: '0.0.1'
+version: git
 summary: A ROS Node to start and stop snap services.
 description: |
   This snap contains a ROS Noetic node that exposes ROS services
