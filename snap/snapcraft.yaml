@@ -1,6 +1,6 @@
 name: ros2-snapd
 base: core24
-version: '0.0.1'
+version: git
 summary: A ROS 2 node to start and stop snap services.
 description: |
   This snap contains a ROS 2 Jazzy node that exposes ROS 2 services
