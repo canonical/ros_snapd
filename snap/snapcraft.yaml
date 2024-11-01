@@ -1,6 +1,6 @@
 name: ros-snapd
 base: core20
-version: '0.0.1'
+version: git
 summary: A ROS Node to start and stop snap services.
 description: |
   This snap contains a ROS Noetic node that exposes ROS services
@@ -15,6 +15,9 @@ description: |
   rosservice call /ros_snapd/restart "{service: 'service.name'}"
 
 license: GPL-3.0
+contact: ubuntu-robotics-community@canonical.com
+website: https://github.com/ubuntu-robotics/ros_snapd
+
 grade: stable
 confinement: strict
 architectures:
