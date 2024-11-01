@@ -21,8 +21,8 @@ website: https://github.com/ubuntu-robotics/ros_snapd
 grade: stable
 confinement: strict
 platforms:
-  - build-on: [amd64]
-  - build-on: [arm64]
+  amd64:
+  arm64:
 
 apps:
   ros2-snapd:
