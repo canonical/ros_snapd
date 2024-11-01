@@ -1,6 +1,6 @@
 name: ros2-snapd
 base: core22
-version: '0.0.1'
+version: git
 summary: A ROS 2 node to start and stop snap services.
 description: |
   This snap contains a ROS 2 Humble node that exposes ROS 2 services
@@ -15,6 +15,9 @@ description: |
   ros2 service call /ros2_snapd/restart ros2_snapd/srv/SnapdRestart "service: 'service.name'"
 
 license: GPL-3.0
+contact: ubuntu-robotics-community@canonical.com
+website: https://github.com/ubuntu-robotics/ros_snapd
+
 grade: stable
 confinement: strict
 architectures:
