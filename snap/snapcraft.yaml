@@ -38,6 +38,9 @@ parts:
   snapd-http:
     plugin: python
     python-packages: [snap-http]
+    # temporarily adding git to list of build-packages
+    # to solve https://github.com/canonical/snapcraft/issues/4805.
+    build-packages: [git]
     source: .
 
   ros2-snapd:

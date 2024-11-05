@@ -16,6 +16,7 @@ jobs:
       snapstore-login: ${{ secrets.STORE_LOGIN }}
     with:
       git-ref: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
+      snap-track: jazzy
       snap-test-script: |
         #!/bin/bash
 
