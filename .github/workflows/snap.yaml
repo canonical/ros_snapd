@@ -24,6 +24,7 @@ jobs:
       snapcraft-args: "--enable-experimental-extensions"
       branch-name: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
       snap-name: ros-snapd
+      snap-track: noetic
       publish: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
       test-script: |
         #!/bin/bash
