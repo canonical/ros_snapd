@@ -16,6 +16,7 @@ jobs:
       snapstore-login: ${{ secrets.STORE_LOGIN }}
     with:
       git-ref: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
+      snapcraft-args: "--enable-experimental-extensions"
       snap-track: noetic
       snap-test-script: |
         #!/bin/bash
