@@ -8,25 +8,16 @@ on:
       - noetic
   workflow_dispatch:
   workflow_call:
-   inputs:
-      branch-name:
-        required: false
-        type: string
-        default: ''
 
 jobs:
   snap:
-    uses: ubuntu-robotics/snap_workflows/.github/workflows/snap.yaml@main
+    uses: canonical/robotics-actions-workflows/.github/workflows/snap.yaml@main
     secrets:
       store-login: ${{ secrets.STORE_LOGIN }}
     with:
-      ubuntu-image: ubuntu-20.04
-      snapcraft-args: "--enable-experimental-extensions"
-      branch-name: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
-      snap-name: ros-snapd
+      git-ref: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
       snap-track: noetic
-      publish: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
-      test-script: |
+      snap-test-script: |
         #!/bin/bash
 
         check_existence() {
