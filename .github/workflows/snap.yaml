@@ -18,6 +18,7 @@ jobs:
       git-ref: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
       snapcraft-args: "--enable-experimental-extensions"
       snap-track: noetic
+      lxd-image: ubuntu:20.04
       snap-test-script: |
         #!/bin/bash
 
