@@ -1,6 +1,6 @@
 name: ros2-snapd
 base: core24
-version: '0.0.1'
+version: git
 summary: A ROS 2 node to start and stop snap services.
 description: |
   This snap contains a ROS 2 Jazzy node that exposes ROS 2 services
@@ -15,11 +15,14 @@ description: |
   ros2 service call /ros2_snapd/restart ros2_snapd/srv/SnapdRestart "service: 'service.name'"
 
 license: GPL-3.0
+contact: ubuntu-robotics-community@canonical.com
+website: https://github.com/ubuntu-robotics/ros_snapd
+
 grade: stable
 confinement: strict
-architectures:
-  - build-on: [amd64]
-  - build-on: [arm64]
+platforms:
+  amd64:
+  arm64:
 
 apps:
   ros2-snapd:
@@ -35,6 +38,9 @@ parts:
   snapd-http:
     plugin: python
     python-packages: [snap-http]
+    # temporarily adding git to list of build-packages
+    # to solve https://github.com/canonical/snapcraft/issues/4805.
+    build-packages: [git]
     source: .
 
   ros2-snapd:

@@ -8,22 +8,16 @@ on:
       - jazzy
   workflow_dispatch:
   workflow_call:
-   inputs:
-      branch-name:
-        required: false
-        type: string
-        default: ''
 
 jobs:
   snap:
-    uses: ubuntu-robotics/snap_workflows/.github/workflows/snap.yaml@main
+    uses: canonical/robotics-actions-workflows/.github/workflows/snap.yaml@main
     secrets:
-      store-login: ${{ secrets.STORE_LOGIN }}
+      snapstore-login: ${{ secrets.STORE_LOGIN }}
     with:
-      branch-name: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
-      snap-name: ros2-snapd
-      publish: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
-      test-script: |
+      git-ref: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
+      snap-track: jazzy
+      snap-test-script: |
         #!/bin/bash
 
         check_existence() {
@@ -31,10 +25,11 @@ jobs:
           local name="${2}"
           local timeout="${3}"
           local start_time=$(date +%s)
+          local error_code=0
 
           while true; do
-            ros2 "${topic_or_node}" list | grep -q "${name}"
-            if [ $? -eq 0 ]; then
+            error_code=$(ros2 "${topic_or_node}" list | grep -q "${name}"; echo $?)
+            if [ $error_code -eq 0 ]; then
               echo "${name} is running."
               return 0
             fi
