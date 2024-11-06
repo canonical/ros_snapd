@@ -8,6 +8,11 @@ on:
       - jazzy
   workflow_dispatch:
   workflow_call:
+    inputs:
+      git-ref:
+        required: false
+        type: string
+        default: ''
 
 jobs:
   snap:
@@ -16,6 +21,8 @@ jobs:
       snapstore-login: ${{ secrets.STORE_LOGIN }}
     with:
       git-ref: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
+      runs-on: '["ubuntu-latest", ["self-hosted", "linux", "ARM64", "large", "noble"]]'
+      snapcraft-enable-experimental-extensions: true
       snap-track: jazzy
       snap-test-script: |
         #!/bin/bash

@@ -1,0 +1,11 @@
+name: Keep alive the workflows for this entire repository
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+jobs:
+  keep_alive:
+    uses: canonical/robotics-actions-workflows/.github/workflows/keepalive.yaml@main
+    with:
+      workflow_files: "monthly.yaml"
