@@ -14,9 +14,12 @@ description: |
   rosservice call /ros_snapd/stop "{service: 'service.name'}"
   rosservice call /ros_snapd/restart "{service: 'service.name'}"
 
-license: GPL-3.0
+website: https://github.com/canonical/ros_snapd
+source-code: https://github.com/canonical/ros_snapd
+issues: https://github.com/canonical/ros_snapd/issues
 contact: ubuntu-robotics-community@canonical.com
-website: https://github.com/ubuntu-robotics/ros_snapd
+
+license: GPL-3.0
 
 grade: stable
 confinement: strict

@@ -1,0 +1,19 @@
+name: promote
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'ros-snapd version to promote'
+        required: true
+        default: noetic
+
+
+jobs:
+  snaps:
+    uses: canonical/robotics-actions-workflows/.github/workflows/promote.yaml@main
+    secrets:
+      snapstore-login: ${{ secrets.STORE_LOGIN }}
+    with:
+      snap: ros-snapd
+      from-channel: '${{ inputs.version }}/candidate'
+      to-channel: '${{ inputs.version }}/stable'
