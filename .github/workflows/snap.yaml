@@ -12,7 +12,7 @@ on:
       git-ref:
         required: false
         type: string
-        default: ''
+        default: ${{ github.ref }}
 
 jobs:
   snap:
@@ -20,7 +20,7 @@ jobs:
     secrets:
       snapstore-login: ${{ secrets.STORE_LOGIN }}
     with:
-      git-ref: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
+      git-ref: ${{ inputs.git-ref }}
       runs-on: '["ubuntu-latest", ["self-hosted", "linux", "ARM64", "large", "noble"]]'
       snapcraft-enable-experimental-extensions: true
       snap-track: jazzy
