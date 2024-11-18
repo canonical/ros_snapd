@@ -8,4 +8,4 @@ jobs:
   keep_alive:
     uses: canonical/robotics-actions-workflows/.github/workflows/keepalive.yaml@main
     with:
-      workflow_files: "monthly.yaml"
+      workflow_files: "./monthly.yaml"
