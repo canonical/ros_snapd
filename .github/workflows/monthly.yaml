@@ -6,11 +6,11 @@ on:
 
 jobs:
   noetic:
-    uses: canonical/ros_snapd/.github/workflows/snap.yaml@noetic
+    uses: canonical/ros_snapd/.github/workflows/snap.yaml@fix/monthly
     with:
       git-ref: "noetic"
   humble:
-    uses: canonical/ros_snapd/.github/workflows/snap.yaml@humble
+    uses: canonical/ros_snapd/.github/workflows/snap.yaml@fix/monthly
     with:
       git-ref: "humble"
   jazzy:
