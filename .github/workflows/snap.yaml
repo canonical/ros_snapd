@@ -8,6 +8,11 @@ on:
       - noetic
   workflow_dispatch:
   workflow_call:
+    inputs:
+      git-ref:
+        required: false
+        type: string
+        default: ${{ github.ref }}
 
 jobs:
   snap:
