@@ -9,10 +9,11 @@ on:
   workflow_dispatch:
     inputs:
       git-ref:
-        description: "the git-ref for this workflow"
+        description: "the branch to run workflow on"
         required: false
         type: string
-        default: ${{ github.ref }}
+        default: jazzy
+
   workflow_call:
     inputs:
       git-ref:
