@@ -14,6 +14,6 @@ jobs:
     with:
       git-ref: "humble"
   jazzy:
-    uses: canonical/ros_snapd/.github/workflows/snap.yaml@jazzy
+    uses: canonical/ros_snapd/.github/workflows/snap.yaml@fix/monthly
     with:
       git-ref: "jazzy"
