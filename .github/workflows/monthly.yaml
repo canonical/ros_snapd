@@ -2,12 +2,18 @@ name: Monthly
 on:
   schedule:
     - cron: '0 0 1 * *'
-  workflow_dispatch:
+  workflow_call:
 
 jobs:
   noetic:
     uses: canonical/ros_snapd/.github/workflows/snap.yaml@noetic
+    with:
+      git-ref: "noetic"
   humble:
     uses: canonical/ros_snapd/.github/workflows/snap.yaml@humble
+    with:
+      git-ref: "humble"
   jazzy:
     uses: canonical/ros_snapd/.github/workflows/snap.yaml@jazzy
+    with:
+      git-ref: "jazzy"

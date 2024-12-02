@@ -7,6 +7,12 @@ on:
     branches:
       - jazzy
   workflow_dispatch:
+    inputs:
+      git-ref:
+        description: "the git-ref for this workflow"
+        required: false
+        type: string
+        default: ${{ github.ref }}
   workflow_call:
     inputs:
       git-ref:
