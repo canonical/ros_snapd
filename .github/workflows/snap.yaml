@@ -7,13 +7,6 @@ on:
     branches:
       - jazzy
   workflow_dispatch:
-    inputs:
-      git-ref:
-        description: "the branch to run workflow on"
-        required: false
-        type: string
-        default: jazzy
-
   workflow_call:
     inputs:
       git-ref:
