@@ -21,7 +21,7 @@ jobs:
       snapstore-login: ${{ secrets.STORE_LOGIN }}
     with:
       runs-on: '["ubuntu-latest", ["self-hosted", "linux", "ARM64", "large", "noble"]]'
-      snapcraft-args: "--enable-experimental-extensions"
+      snapcraft-enable-experimental-extensions: true
       snap-track: noetic
       lxd-image: ubuntu:20.04
       snap-test-script: |
