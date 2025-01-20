@@ -10,6 +10,6 @@ permissions:
 
 jobs:
   keep_alive:
-    uses: canonical/robotics-actions-workflows/.github/workflows/keepalive.yaml@main
+    uses: canonical/robotics-actions-workflows/.github/workflows/keepalive.yaml@fix/keep_alive_old_co
     with:
       workflow_files: "./monthly.yaml"
