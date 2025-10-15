@@ -34,7 +34,7 @@ apps:
     environment:
       ROS_HOME: $SNAP_DATA/ros
       FASTRTPS_DEFAULT_PROFILES_FILE: ${SNAP}/usr/share/fastdds_no_shared_memory.xml
-    plugs: [network, network-bind, ros-snapd-support, snap-refresh-observe]
+    plugs: [network, network-bind, ros-snapd-support]
     extensions: [ros2-jazzy-ros-base]
 
 parts:
