@@ -33,7 +33,7 @@ apps:
     daemon: simple
     environment:
       ROS_HOME: $SNAP_DATA/ros
-    plugs: [network, network-bind, snapd-control]
+    plugs: [network, network-bind, ros-snapd-support]
     extensions: [ros1-noetic-ros-base]
 
 parts:

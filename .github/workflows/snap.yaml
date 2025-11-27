@@ -71,7 +71,7 @@ jobs:
         roscore &
 
         # Connect the interface
-        sudo snap connect ros-snapd:snapd-control
+        sudo snap connect ros-snapd:ros-snapd-support
         sudo snap restart ros-snapd
         sleep 5
 

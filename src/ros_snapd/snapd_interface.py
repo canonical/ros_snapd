@@ -18,6 +18,10 @@ from ros_snapd.srv import (
     SnapdStopResponse,
 )
 
+# Necessary to use the snap socket for `ros-snapd-support` interface.
+snap_http.http.SNAPD_SOCKET = "/run/snapd-snap.socket"
+
+
 _EXCLUSION_LIST = [
     "lxd.activate",
     "lxd.daemon",
