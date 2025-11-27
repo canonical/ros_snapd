@@ -53,7 +53,7 @@ jobs:
         }
 
         ## Connect interface
-        sudo snap connect ros2-snapd:snapd-control
+        sudo snap connect ros2-snapd:ros-snapd-support
         sudo snap restart ros2-snapd
 
         ## Install ROS 2 cli

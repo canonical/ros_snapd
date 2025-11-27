@@ -25,6 +25,10 @@ from rclpy.node import Node
 import time
 
 
+# Necessary to use the snap socket for interfaces
+snap_http.http.SNAPD_SOCKET = "/run/snapd-snap.socket"
+
+
 _EXCLUSION_LIST = [
     "lxd.activate",
     "lxd.daemon",
