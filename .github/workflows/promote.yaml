@@ -27,5 +27,5 @@ jobs:
       snapstore-login: ${{ secrets.STORE_LOGIN }}
     with:
       snap: ${{ inputs.name }}
-      from-channel: '${{ inputs.version }}/candidate'
+      from-channel: '${{ inputs.version }}/edge'
       to-channel: '${{ inputs.version }}/stable'
