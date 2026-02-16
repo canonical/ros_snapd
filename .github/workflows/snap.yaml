@@ -25,6 +25,7 @@ jobs:
       snapcraft-enable-experimental-extensions: true
       snap-track: noetic
       lxd-image: ubuntu:20.04
+      snap-risk: candidate
       snap-test-script: |
         #!/bin/bash
 
