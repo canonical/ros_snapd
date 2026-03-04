@@ -4,14 +4,7 @@ project(ros2_snapd)
 find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
 find_package(rclpy REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
-
-rosidl_generate_interfaces(${PROJECT_NAME}
-  "srv/SnapdList.srv"
-  "srv/SnapdStart.srv"
-  "srv/SnapdRestart.srv"
-  "srv/SnapdStop.srv"
-)
+find_package(ros_snapd_interfaces REQUIRED)
 
 install(PROGRAMS
   scripts/ros2_snapd.py
@@ -31,5 +24,5 @@ if(BUILD_TESTING)
   )
 endif()
 
-ament_export_dependencies(rosidl_default_runtime)
+ament_export_dependencies(ros_snapd_interfaces)
 ament_package()

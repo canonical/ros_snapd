@@ -51,7 +51,7 @@ Here we use `ros2-snapd` to list the available
 snap services that we can interract with.
 
 ```
-ros2 service call /ros2_snapd/list ros2_snapd/srv/SnapdList
+ros2 service call /ros2_snapd/list ros_snapd_interfaces/srv/SnapdList
 ```
 
 This returns a list containing `ros2-nav2.slam` among other services.
@@ -63,7 +63,7 @@ Using the snap CLI we would issue: `sudo snap start ros2-nav2.slam`.
 With `ros2-snapd`, we can start the service from a ROS service:
 
 ```
-ros2 service call /ros2_snapd/start ros2_snapd/srv/SnapdStart "service: 'ros2-nav2.slam'"
+ros2 service call /ros2_snapd/start ros_snapd_interfaces/srv/SnapdStart "service: 'ros2-nav2.slam'"
 ```
 
 We can verify that our service is started with:
@@ -79,7 +79,7 @@ Using the snap CLI we would issue: `sudo snap stop ros2-nav2.slam`.
 With `ros2-snapd`, we can stop the service from a ROS service:
 
 ```
-ros2 service call /ros2_snapd/stop ros2_snapd/srv/SnapdStop "service: 'ros2-nav2.slam'"
+ros2 service call /ros2_snapd/stop ros_snapd_interfaces/srv/SnapdStop "service: 'ros2-nav2.slam'"
 ```
 
 We can verify that our service is stopped with:

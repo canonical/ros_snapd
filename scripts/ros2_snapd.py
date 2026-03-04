@@ -17,7 +17,7 @@
 
 import snap_http
 
-from ros2_snapd.srv import SnapdList, SnapdRestart, SnapdStart, SnapdStop
+from ros_snapd_interfaces.srv import SnapdList, SnapdRestart, SnapdStart, SnapdStop
 
 import rclpy
 from rclpy.node import Node
@@ -39,14 +39,14 @@ _EXCLUSION_LIST = [
 
 
 class Ros2SnapdNode(Node):
-
     def __init__(self):
         super().__init__("ros2_snapd")
         self.srv = self.create_service(SnapdList, "~/list", self._list_callback)
-        self.srv = self.create_service(SnapdRestart, "~/restart", self._restart_callback)
+        self.srv = self.create_service(
+            SnapdRestart, "~/restart", self._restart_callback
+        )
         self.srv = self.create_service(SnapdStart, "~/start", self._start_callback)
         self.srv = self.create_service(SnapdStop, "~/stop", self._stop_callback)
-
 
     def _list_callback(self, request, response):
         """Service 'list' callback."""
@@ -90,7 +90,9 @@ class Ros2SnapdNode(Node):
         except snap_http.http.SnapdHttpException as e:
             self.get_logger().error(str(e))
             response.success = False
-            response.message = f"Something went wrong while restarting '{request.service}': {e}"
+            response.message = (
+                f"Something went wrong while restarting '{request.service}': {e}"
+            )
             return response
 
         self.get_logger().debug(str(restart_response))
@@ -111,9 +113,7 @@ class Ros2SnapdNode(Node):
 
     def _start_callback(self, request, response):
         """Service 'start' callback."""
-        self.get_logger().debug(
-            f"Incoming request to start service {request.service}"
-        )
+        self.get_logger().debug(f"Incoming request to start service {request.service}")
 
         if request.service in _EXCLUSION_LIST:
             response.success = False
@@ -126,7 +126,9 @@ class Ros2SnapdNode(Node):
         except snap_http.http.SnapdHttpException as e:
             self.get_logger().error(str(e))
             response.success = False
-            response.message = f"Something went wrong while starting '{request.service}': {e}"
+            response.message = (
+                f"Something went wrong while starting '{request.service}': {e}"
+            )
             return response
 
         self.get_logger().debug(str(start_response))
@@ -147,9 +149,7 @@ class Ros2SnapdNode(Node):
 
     def _stop_callback(self, request, response):
         """Service 'stop' callback."""
-        self.get_logger().debug(
-            f"Incoming request to stop service '{request.service}'"
-        )
+        self.get_logger().debug(f"Incoming request to stop service '{request.service}'")
 
         if request.service in _EXCLUSION_LIST:
             response.success = False
@@ -162,7 +162,9 @@ class Ros2SnapdNode(Node):
         except snap_http.http.SnapdHttpException as e:
             self.get_logger().error(str(e))
             response.success = False
-            response.message = f"Something went wrong while stopping '{request.service}': {e}"
+            response.message = (
+                f"Something went wrong while stopping '{request.service}': {e}"
+            )
             return response
 
         self.get_logger().debug(str(stop_response))
@@ -192,5 +194,5 @@ def main():
     rclpy.shutdown()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
