@@ -41,12 +41,12 @@ _EXCLUSION_LIST = [
 class Ros2SnapdNode(Node):
     def __init__(self):
         super().__init__("ros2_snapd")
-        self.srv = self.create_service(SnapdList, "~/list", self._list_callback)
-        self.srv = self.create_service(
+        self.list_srv = self.create_service(SnapdList, "~/list", self._list_callback)
+        self.restart_srv = self.create_service(
             SnapdRestart, "~/restart", self._restart_callback
         )
-        self.srv = self.create_service(SnapdStart, "~/start", self._start_callback)
-        self.srv = self.create_service(SnapdStop, "~/stop", self._stop_callback)
+        self.start_srv = self.create_service(SnapdStart, "~/start", self._start_callback)
+        self.stop_srv = self.create_service(SnapdStop, "~/stop", self._stop_callback)
 
     def _list_callback(self, request, response):
         """Service 'list' callback."""
