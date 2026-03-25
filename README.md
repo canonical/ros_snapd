@@ -31,13 +31,13 @@ The snap automatically starts the node and the services are readily available.
 To list available snap service:
 
 ```bash
-ros2 service call /ros2_snapd/list ros2_snapd/srv/SnapdList
+ros2 service call /ros2_snapd/list ros_snapd_interfaces/srv/SnapdList
 ```
 
 To start, stop and restart snap service:
 
 ```bash
-ros2 service call /ros2_snapd/start ros2_snapd/srv/SnapdStart "service: 'service.name'"
-ros2 service call /ros2_snapd/stop ros2_snapd/srv/SnapdStop "service: 'service.name'"
-ros2 service call /ros2_snapd/restart ros2_snapd/srv/SnapdRestart "service: 'service.name'"
+ros2 service call /ros2_snapd/start ros_snapd_interfaces/srv/SnapdStart "service: 'service.name'"
+ros2 service call /ros2_snapd/stop ros_snapd_interfaces/srv/SnapdStop "service: 'service.name'"
+ros2 service call /ros2_snapd/restart ros_snapd_interfaces/srv/SnapdRestart "service: 'service.name'"
 ```

@@ -21,18 +21,17 @@ from snap_http.http import SnapdHttpException
 import rclpy
 
 from scripts.ros2_snapd import Ros2SnapdNode
-from ros2_snapd.srv import SnapdList, SnapdRestart, SnapdStart, SnapdStop
+from ros_snapd_interfaces.srv import SnapdList, SnapdRestart, SnapdStart, SnapdStop
 
 
 class TestSnapdInterface(TestCase):
-
     @classmethod
     def setUpClass(self):
         rclpy.init()
 
         foo = SnapdList.Request()
 
-        assert(foo)
+        assert foo
 
         self.node = Ros2SnapdNode()
 
@@ -45,17 +44,18 @@ class TestSnapdInterface(TestCase):
         response = SnapdList.Response()
         response = self.node._list_callback(SnapdList.Request(), response)
 
-        assert response == SnapdList.Response(
-            success=True, message="", services=[]
-        )
+        assert response == SnapdList.Response(success=True, message="", services=[])
 
     @mock.patch("snap_http.get_apps")
     def test_list_callback(self, mocked_get_apps):
         mocked_get_apps.return_value = SnapdResponse(
-            type="", status_code="", status="", result=[
+            type="",
+            status_code="",
+            status="",
+            result=[
                 {"snap": "foo", "name": "srv"},
                 {"snap": "bar", "name": "srv"},
-            ]
+            ],
         )
 
         response = SnapdList.Response()
@@ -75,17 +75,20 @@ class TestSnapdInterface(TestCase):
         assert response == SnapdList.Response(
             success=False,
             message="Something went wrong while querying for services",
-            services=[]
+            services=[],
         )
 
     @mock.patch("scripts.ros2_snapd._EXCLUSION_LIST", ["bar.srv"])
     @mock.patch("snap_http.get_apps")
     def test_list_exclusion_list(self, mocked_get_apps):
         mocked_get_apps.return_value = SnapdResponse(
-            type="", status_code="", status="", result=[
+            type="",
+            status_code="",
+            status="",
+            result=[
                 {"snap": "foo", "name": "srv"},
                 {"snap": "bar", "name": "srv"},
-            ]
+            ],
         )
 
         response = SnapdList.Response()
@@ -143,7 +146,9 @@ class TestSnapdInterface(TestCase):
         )
 
         response = SnapdStart.Response()
-        response = self.node._start_callback(SnapdStart.Request(service="foo"), response)
+        response = self.node._start_callback(
+            SnapdStart.Request(service="foo"), response
+        )
 
         assert response == SnapdStart.Response(
             success=True, message="Service 'foo' started"
