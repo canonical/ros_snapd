@@ -83,6 +83,6 @@ jobs:
         check_existence rosservice /ros_snapd/restart 30
 
         ## @todo test all services
-        rosservice call /ros_snapd/list | grep 'success: True' >/dev/null
+        rosservice info /ros_snapd/list | grep 'Type: ros_snapd_interfaces/SnapdList' >/dev/null
 
         sudo snap stop ros-snapd
