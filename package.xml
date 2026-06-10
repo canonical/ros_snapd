@@ -13,6 +13,5 @@
 
   <exec_depend>rospy</exec_depend>
   <exec_depend>ros_snapd_interfaces</exec_depend>
-  <test_depend>ros_snapd_interfaces</test_depend>
 
 </package>
