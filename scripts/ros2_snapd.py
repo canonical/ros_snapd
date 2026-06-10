@@ -17,7 +17,7 @@
 
 import snap_http
 
-from ros2_snapd.srv import SnapdList, SnapdRestart, SnapdStart, SnapdStop
+from ros_snapd_interfaces.srv import SnapdList, SnapdRestart, SnapdStart, SnapdStop
 
 import rclpy
 from rclpy.node import Node

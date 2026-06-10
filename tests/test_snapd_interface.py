@@ -21,7 +21,7 @@ from snap_http.http import SnapdHttpException
 import rclpy
 
 from scripts.ros2_snapd import Ros2SnapdNode
-from ros2_snapd.srv import SnapdList, SnapdRestart, SnapdStart, SnapdStop
+from ros_snapd_interfaces.srv import SnapdList, SnapdRestart, SnapdStart, SnapdStop
 
 
 class TestSnapdInterface(TestCase):
