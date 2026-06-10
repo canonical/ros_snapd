@@ -2,27 +2,15 @@ cmake_minimum_required(VERSION 3.16)
 project(ros_snapd)
 
 find_package(catkin REQUIRED COMPONENTS
-  message_generation
   rospy
-  std_msgs
+  ros_snapd_interfaces
 )
 
 catkin_python_setup()
 
-add_service_files(
-  FILES
-  SnapdList.srv
-  SnapdStart.srv
-  SnapdRestart.srv
-  SnapdStop.srv
+catkin_package(
+  CATKIN_DEPENDS ros_snapd_interfaces
 )
-
-generate_messages(
-  DEPENDENCIES
-  std_msgs
-)
-
-catkin_package()
 
 catkin_install_python(PROGRAMS scripts/ros_snapd
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

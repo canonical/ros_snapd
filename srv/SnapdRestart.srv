@@ -1,4 +1,0 @@
-string service # name of the service to restart
----
-bool success # indicate successful restart of the service
-string message # informational, e.g. error messages
