@@ -2,8 +2,8 @@
 Changelog for package ros2_snapd
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.1 (2026-07-17)
+------------------
 * ci: migrate jazzy workflow to GitHub ARM runner
 * ci(promote): from candidate to stable
 * ci(publish): publish on candidate
