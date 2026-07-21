@@ -4,7 +4,7 @@ from snap_http import SnapdResponse
 from snap_http.http import SnapdHttpException
 
 from ros_snapd.snapd_interface import RosSnapdNode
-from ros_snapd.srv import (
+from ros_snapd_interfaces.srv import (
     SnapdList,
     SnapdListResponse,
     SnapdRestartRequest,

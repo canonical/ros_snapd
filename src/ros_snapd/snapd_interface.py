@@ -3,7 +3,7 @@
 import rospy
 import snap_http
 
-from ros_snapd.srv import (
+from ros_snapd_interfaces.srv import (
     SnapdList,
     SnapdListRequest,
     SnapdListResponse,
