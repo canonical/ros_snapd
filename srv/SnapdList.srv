@@ -1,4 +1,0 @@
----
-bool success # indicate successful start of the service
-string message # informational, e.g. error messages
-string[] services # List of snapd services
