@@ -2,10 +2,10 @@ name: snap
 on:
   push:
     branches:
-      - jazzy
+      - lyrical
   pull_request:
     branches:
-      - jazzy
+      - lyrical
   workflow_dispatch:
   workflow_call:
     inputs:
@@ -16,6 +16,9 @@ on:
 
 jobs:
   snap:
+    permissions:
+      contents: read
+      actions: write
     uses: canonical/robotics-actions-workflows/.github/workflows/snap.yaml@main
     secrets:
       snapstore-login: ${{ secrets.STORE_LOGIN }}
@@ -23,7 +26,7 @@ jobs:
       git-ref: ${{ inputs.git-ref }}
       runs-on: '["ubuntu-latest", "ubuntu-24.04-arm" ]'
       snapcraft-enable-experimental-extensions: true
-      snap-track: jazzy
+      snap-track: lyrical
       snap-risk: candidate
       snap-test-script: |
         #!/bin/bash
@@ -58,7 +61,7 @@ jobs:
         sudo snap restart ros2-snapd
 
         ## Install ROS 2 cli
-        sudo snap install ros2-cli --channel=jazzy/edge
+        sudo snap install ros2-cli --channel=lyrical/edge
 
         ## check that services are available
         check_existence service /ros2_snapd/list 30
