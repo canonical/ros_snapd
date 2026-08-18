@@ -31,7 +31,7 @@ sudo snap set ros2-nav2 slam-config=/var/snap/ros2-nav2/common/configuration_tem
 
 ### Install the `ros_snapd_interfaces`
 
-In another terminal, install `ros2-snapd` interfaces:
+In another terminal, install the `ros_snapd_interfaces` package:
 
 ```
 sudo apt install ros-humble-ros-snapd-interfaces
