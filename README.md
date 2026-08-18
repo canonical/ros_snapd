@@ -26,7 +26,7 @@ It can also be installed directly from the store:
 snap install ros2-snapd
 ```
 
-Make sure to have the interface package installed:
+Make sure to have the `ros_snapd_interfaces` package installed:
 ```
 apt install ros-jazzy-ros-snapd-interfaces
 ```

@@ -6,7 +6,7 @@ description: |
   This snap contains a ROS 2 Jazzy node that exposes ROS 2 services
   which allow to interact with snap services.
 
-  Make sure to install the `ros2-snapd` interfaces:
+  Make sure to install the `ros_snapd_interfaces` package:
   apt install ros-jazzy-ros-snapd-interfaces
 
   To list available snap service:
