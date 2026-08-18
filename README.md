@@ -26,6 +26,11 @@ It can also be installed directly from the store:
 snap install ros2-snapd
 ```
 
+Make sure to have the interface package installed:
+```
+apt install ros-jazzy-ros-snapd-interfaces
+```
+
 The snap automatically starts the node and the services are readily available.
 
 To list available snap service:
