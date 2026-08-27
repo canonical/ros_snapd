@@ -6,6 +6,9 @@ description: |
   This snap contains a ROS 2 Humble node that exposes ROS 2 services
   which allow to interact with snap services.
 
+  Make sure to install the `ros_snapd_interfaces` package:
+  apt install ros-humble-ros-snapd-interfaces
+
   To list available snap service:
   ros2 service call /ros2_snapd/list ros_snapd_interfaces/srv/SnapdList
 
