@@ -41,6 +41,12 @@ parts:
     plugin: python
     python-packages: [snap-http]
 
+  ros-snapd-interfaces:
+    plugin: catkin
+    source: https://github.com/canonical/ros_snapd_interfaces.git
+    source-branch: ros
+
   ros-snapd:
     plugin: catkin
     source: .
+    after: [ros-snapd-interfaces]
