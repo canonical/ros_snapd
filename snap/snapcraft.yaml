@@ -45,6 +45,12 @@ parts:
     plugin: catkin
     source: https://github.com/canonical/ros_snapd_interfaces.git
     source-branch: ros
+    stage:
+      - -opt/ros/noetic/.rosinstall
+      - -opt/ros/noetic/local_setup.fish
+      - -opt/ros/noetic/local_setup.sh
+      - -opt/ros/noetic/setup.fish
+      - -opt/ros/noetic/setup.sh
 
   ros-snapd:
     plugin: catkin
