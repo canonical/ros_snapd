@@ -29,20 +29,20 @@ Then, configure the ros2-nav2 with some default configuration:
 sudo snap set ros2-nav2 slam-config=/var/snap/ros2-nav2/common/configuration_templates/slam_params_template.yaml
 ```
 
+### Install the `ros_snapd_interfaces`
+
+In another terminal, install the `ros_snapd_interfaces` package:
+
+```
+sudo apt install ros-jazzy-ros-snapd-interfaces
+```
+
 ## Start and stop the ros2-nav.slam
 
 First, make sure to start the simulation:
 
 ```
 ros2 launch rosbot_xl_gazebo simulation.launch.py
-```
-
-### Source the ros2-snapd services
-
-In another terminal, source the `ros2-snapd` services:
-
-```
-source /snap/ros2-snapd/current/opt/ros/snap/local_setup.bash
 ```
 
 ### List the available snapd services
