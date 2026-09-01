@@ -16,12 +16,16 @@ on:
 
 jobs:
   snap:
+    permissions:
+      contents: read
+      actions: write
     uses: canonical/robotics-actions-workflows/.github/workflows/snap.yaml@main
     secrets:
       snapstore-login: ${{ secrets.STORE_LOGIN }}
     with:
       git-ref: ${{ inputs.git-ref }}
       runs-on: '["ubuntu-latest", "ubuntu-24.04-arm" ]'
+      snapcraft-channel: "8.x/stable"
       snapcraft-enable-experimental-extensions: true
       snap-track: noetic
       lxd-image: ubuntu:20.04
