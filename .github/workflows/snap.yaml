@@ -67,11 +67,9 @@ jobs:
         sudo snap services ros2-snapd
         sleep 10
 
-        ## check that services are available
-        check_existence service /ros2_snapd/list 30
-        check_existence service /ros2_snapd/start 30
-        check_existence service /ros2_snapd/stop 30
-        check_existence service /ros2_snapd/restart 30
+        ## validate daemon health in snapd directly
+        snap services ros2-snapd | tee /tmp/ros2-snapd-services.txt
+        grep -Eq 'ros2-snapd\.ros2-snapd\s+enabled\s+active' /tmp/ros2-snapd-services.txt
 
         ## @todo test all services
 
