@@ -44,6 +44,8 @@ parts:
     # temporarily adding git to list of build-packages
     # to solve https://github.com/canonical/snapcraft/issues/4805.
     build-packages: [git]
+    # core26 python plugin expects the interpreter to be present in payload.
+    stage-packages: [python3]
     source: .
 
   ros2-snapd:
