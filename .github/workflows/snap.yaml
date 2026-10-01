@@ -61,7 +61,7 @@ jobs:
         sudo snap restart ros2-snapd
 
         ## Install ROS 2 cli
-        sudo snap install ros2-cli --channel=lyrical/edge
+        sudo snap install ros2-cli --edge
 
         ## check that services are available
         check_existence service /ros2_snapd/list 30
