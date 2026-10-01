@@ -43,7 +43,7 @@ parts:
     python-packages: [snap-http]
     # temporarily adding git to list of build-packages
     # to solve https://github.com/canonical/snapcraft/issues/4805.
-    build-packages: [git]
+    build-packages: [git, python3.14-venv]
     # core26 python plugin expects the interpreter to be present in payload.
     stage-packages: [python3]
     source: .
