@@ -1,9 +1,9 @@
 name: ros2-snapd
-base: core24
+base: core26
 version: git
 summary: A ROS 2 node to start and stop snap services.
 description: |
-  This snap contains a ROS 2 Jazzy node that exposes ROS 2 services
+  This snap contains a ROS 2 Lyrical node that exposes ROS 2 services
   which allow to interact with snap services.
 
   To list available snap service:
@@ -35,7 +35,7 @@ apps:
       ROS_HOME: $SNAP_DATA/ros
       FASTRTPS_DEFAULT_PROFILES_FILE: ${SNAP}/usr/share/fastdds_no_shared_memory.xml
     plugs: [network, network-bind, ros-snapd-support]
-    extensions: [ros2-jazzy-ros-base]
+    extensions: [ros2-lyrical-ros-base]
 
 parts:
   snapd-http:
@@ -43,7 +43,9 @@ parts:
     python-packages: [snap-http]
     # temporarily adding git to list of build-packages
     # to solve https://github.com/canonical/snapcraft/issues/4805.
-    build-packages: [git]
+    build-packages: [git, python3.14-venv]
+    # core26 python plugin expects the interpreter to be present in payload.
+    stage-packages: [python3, python3.14-venv]
     source: .
 
   ros2-snapd:
