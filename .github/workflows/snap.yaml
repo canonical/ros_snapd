@@ -64,11 +64,9 @@ jobs:
 
         ## Ensure ros2-snapd daemon is active before ROS service checks
         sudo snap restart ros2-snapd.ros2-snapd || sudo snap start ros2-snapd.ros2-snapd
-        sudo snap services ros2-snapd
-        sleep 10
 
         ## validate daemon health in snapd directly
-        snap services ros2-snapd | tee /tmp/ros2-snapd-services.txt
+        sudo snap services ros2-snapd | tee /tmp/ros2-snapd-services.txt
         grep -Eq 'ros2-snapd\.ros2-snapd\s+enabled\s+active' /tmp/ros2-snapd-services.txt
 
         ## @todo test all services
