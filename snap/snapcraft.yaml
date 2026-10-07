@@ -51,9 +51,9 @@ parts:
     plugin: colcon
     source: .
     build-packages: [python3-lark]
-    # stage ros2cli: the app command is `ros2 run ros2_snapd ros2_snapd`,
-    # which requires the ros2 binary at runtime.
-    stage-packages: [ros-lyrical-ros2cli]
+    # stage ros2cli+ros2run: the app command is `ros2 run ros2_snapd ros2_snapd`,
+    # which requires the ros2 binary and the `run` verb at runtime.
+    stage-packages: [ros-lyrical-ros2cli, ros-lyrical-ros2run]
 
   config:
     plugin: dump
