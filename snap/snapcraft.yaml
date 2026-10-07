@@ -56,7 +56,9 @@ parts:
     build-packages: [python3-lark]
     # stage ros2cli+ros2run: the app command is `ros2 run ros2_snapd ros2_snapd`,
     # which requires the ros2 binary and the `run` verb at runtime.
-    stage-packages: [ros-lyrical-ros2cli, ros-lyrical-ros2run]
+    # ros-snapd-interfaces provides the ros_snapd_interfaces python module the
+    # node imports at startup.
+    stage-packages: [ros-lyrical-ros2cli, ros-lyrical-ros2run, ros-lyrical-ros-snapd-interfaces]
 
   config:
     plugin: dump
