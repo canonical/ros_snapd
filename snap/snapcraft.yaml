@@ -34,6 +34,9 @@ apps:
     environment:
       ROS_HOME: $SNAP_DATA/ros
       FASTRTPS_DEFAULT_PROFILES_FILE: ${SNAP}/usr/share/fastdds_no_shared_memory.xml
+      # the snapd-http part (python plugin) installs snap-http into the snap's
+      # site-packages; make it importable from the colcon-installed node.
+      PYTHONPATH: $SNAP/lib/python3.14/site-packages:$PYTHONPATH
     plugs: [network, network-bind, ros-snapd-support]
     extensions: [ros2-lyrical-ros-base]
 
