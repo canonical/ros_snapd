@@ -58,7 +58,7 @@ parts:
     # which requires the ros2 binary and the `run` verb at runtime.
     # ros-snapd-interfaces provides the ros_snapd_interfaces python module the
     # node imports at startup.
-    stage-packages: [ros-lyrical-ros2cli, ros-lyrical-ros2run, ros-lyrical-ros-snapd-interfaces]
+    stage-packages: [ros-lyrical-ros2cli, ros-lyrical-ros2run, ros-lyrical-ros2service, ros-lyrical-ros-snapd-interfaces]
 
   config:
     plugin: dump
