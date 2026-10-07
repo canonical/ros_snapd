@@ -2,10 +2,10 @@ name: snap
 on:
   push:
     branches:
-      - jazzy
+      - lyrical
   pull_request:
     branches:
-      - jazzy
+      - lyrical
   workflow_dispatch:
   workflow_call:
     inputs:
@@ -16,6 +16,9 @@ on:
 
 jobs:
   snap:
+    permissions:
+      contents: read
+      actions: write
     uses: canonical/robotics-actions-workflows/.github/workflows/snap.yaml@main
     secrets:
       snapstore-login: ${{ secrets.STORE_LOGIN }}
@@ -23,7 +26,7 @@ jobs:
       git-ref: ${{ inputs.git-ref }}
       runs-on: '["ubuntu-latest", "ubuntu-24.04-arm" ]'
       snapcraft-enable-experimental-extensions: true
-      snap-track: jazzy
+      snap-track: lyrical
       snap-risk: candidate
       snap-test-script: |
         #!/bin/bash
@@ -55,16 +58,48 @@ jobs:
 
         ## Connect interface
         sudo snap connect ros2-snapd:ros-snapd-support
-        sudo snap restart ros2-snapd
+        sudo snap restart ros2-snapd.ros2-snapd || sudo snap start ros2-snapd.ros2-snapd
 
-        ## Install ROS 2 cli
+        ## Install ROS 2 cli (kept for manual debugging convenience)
         sudo snap install ros2-cli --channel=jazzy/edge
 
-        ## check that services are available
-        check_existence service /ros2_snapd/list 30
-        check_existence service /ros2_snapd/start 30
-        check_existence service /ros2_snapd/stop 30
-        check_existence service /ros2_snapd/restart 30
+        ## wait for the daemon to be (and stay) active; dump snap logs on failure
+        daemon_active=0
+        for i in $(seq 1 30); do
+          state="$(snap services ros2-snapd | awk 'NR>1 && $1=="ros2-snapd.ros2-snapd" {print $3}')"
+          if [ "$state" = "active" ]; then
+            daemon_active=1
+            break
+          fi
+          sleep 2
+        done
+        if [ "$daemon_active" -ne 1 ]; then
+          echo "ros2-snapd daemon did not become active; recent snap logs:"
+          sudo snap logs ros2-snapd -n 100 || true
+          exit 1
+        fi
+        snap services ros2-snapd
+
+        ## check that the snap actually registered its services on its own graph.
+        ## NOTE: discovery from the external ros2-cli snap is not possible
+        ## (jazzy/cyclonedds client vs lyrical/fastdds daemon, core26 confinement),
+        ## so verify from inside the snap confinement instead.
+        for svc in list start stop restart; do
+          found=0
+          for i in $(seq 1 30); do
+            if sudo snap run --shell ros2-snapd.ros2-snapd -c 'ros2 service list' | grep -q "/ros2_snapd/$svc"; then
+              echo "/ros2_snapd/$svc is running."
+              found=1
+              break
+            fi
+            sleep 2
+          done
+          if [ "$found" -ne 1 ]; then
+            echo "Error /ros2_snapd/$svc is not running."
+            sudo snap logs ros2-snapd -n 50 || true
+            exit 1
+          fi
+        done
 
         ## @todo test all services
 

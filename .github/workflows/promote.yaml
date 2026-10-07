@@ -5,11 +5,12 @@ on:
       version:
         description: 'ros-snapd version to promote'
         required: true
-        default: jazzy
+        default: lyrical
         type: choice
         options:
           - humble
           - jazzy
+          - lyrical
           - noetic
       name:
         description: 'snap name based on ros version'

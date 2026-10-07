@@ -2,6 +2,10 @@
 Changelog for package ros2_snapd
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* port branch configuration to lyrical
+
 0.0.1 (2026-07-17)
 ------------------
 * ci: migrate jazzy workflow to GitHub ARM runner

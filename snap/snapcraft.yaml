@@ -1,9 +1,9 @@
 name: ros2-snapd
-base: core24
+base: core26
 version: git
 summary: A ROS 2 node to start and stop snap services.
 description: |
-  This snap contains a ROS 2 Jazzy node that exposes ROS 2 services
+  This snap contains a ROS 2 Lyrical node that exposes ROS 2 services
   which allow to interact with snap services.
 
   To list available snap service:
@@ -34,22 +34,31 @@ apps:
     environment:
       ROS_HOME: $SNAP_DATA/ros
       FASTRTPS_DEFAULT_PROFILES_FILE: ${SNAP}/usr/share/fastdds_no_shared_memory.xml
+      # the snapd-http part (python plugin) installs snap-http into the snap's
+      # site-packages; make it importable from the colcon-installed node.
+      PYTHONPATH: $SNAP/lib/python3.14/site-packages:$PYTHONPATH
     plugs: [network, network-bind, ros-snapd-support]
-    extensions: [ros2-jazzy-ros-base]
+    extensions: [ros2-lyrical-ros-base]
 
 parts:
   snapd-http:
     plugin: python
     python-packages: [snap-http]
-    # temporarily adding git to list of build-packages
-    # to solve https://github.com/canonical/snapcraft/issues/4805.
-    build-packages: [git]
+    build-packages: [git, python3.14-venv]
+    # core26 python plugin expects a venv-capable interpreter in the payload;
+    # python3 itself is already staged via the colcon part (rclpy dependency chain).
+    stage-packages: [python3.14-venv]
     source: .
 
   ros2-snapd:
     plugin: colcon
     source: .
     build-packages: [python3-lark]
+    # stage ros2cli+ros2run: the app command is `ros2 run ros2_snapd ros2_snapd`,
+    # which requires the ros2 binary and the `run` verb at runtime.
+    # ros-snapd-interfaces provides the ros_snapd_interfaces python module the
+    # node imports at startup.
+    stage-packages: [ros-lyrical-ros2cli, ros-lyrical-ros2run, ros-lyrical-ros2service, ros-lyrical-ros-snapd-interfaces]
 
   config:
     plugin: dump

@@ -20,3 +20,8 @@ jobs:
     secrets: inherit
     with:
       git-ref: "jazzy"
+  lyrical:
+    uses: canonical/ros_snapd/.github/workflows/snap.yaml@lyrical
+    secrets: inherit
+    with:
+      git-ref: "lyrical"
